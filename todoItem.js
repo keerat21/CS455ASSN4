@@ -13,7 +13,7 @@ export default function TodoItem({pressHandler, item }){
 
   const navigation = useNavigation();
   return (
-    <Pressable onPress={() => {pressHandler(item.key), navigation.push('Details')}}>
+    <Pressable onPress={() => {navigation.push('Details')}} onLongPress={() => {pressHandler(item.key)}}>
       <Text style = {styles.item}>{item.text}</Text>
     </Pressable>
 
