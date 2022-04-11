@@ -5,19 +5,22 @@ import { StyleSheet, Text, View, FlatList } from 'react-native';
 
 import TodoItem from './todoItem';
 import AddTodo from './addTodos';
+import { useNavigation } from '@react-navigation/native';
+
+
+
 
 export default function TList(){
-  
-const [todos, setTodos] = useState([
-  { text: 'Buy egg', key: '1'},
-  { text: 'Peel egg', key: '2'},
-  { text: 'Eat egg', key: '3'},
-  { text: 'Take Gas-X', key: '4'},
-  { text: 'Finish CS 455/855 assignments', key: '5'}
-]);  
-
+  const [todos, setTodos] = useState([
+    { text: 'Task1', key: '1'},
+    { text: 'Task2', key: '2'},
+    { text: 'Task3', key: '3'}
+  ]);  
+  const navigation = useNavigation();
 const pressHandler = (key) => {
   setTodos( prevTodos => {
+    if (todos.length-1 == 0)
+    navigation.goBack();
     return prevTodos.filter(filterTodo => filterTodo.key != key);
   });
 };
@@ -55,7 +58,7 @@ return (
 const styles = StyleSheet.create({
   container: {
     
-    backgroundColor: '#fff',
+    backgroundColor: '#ff9',
   },
 
   content: {

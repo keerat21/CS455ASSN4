@@ -1,16 +1,19 @@
 import React, {useState} from 'react';
-import { View, Text, Button, TextInput, TouchableOpacity, StyleSheet, FlatList} from 'react-native';
+import { View, Text, Button, TextInput, TouchableOpacity, StyleSheet, ScrollView,FlatList} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import TodoItem from './todoItem';
 import AddTodo from './addTodos';
 import TList from './ListRender';
+import CameraWork from './camera';
+import { Camera } from 'expo-camera';
 
 function HomeScreen({navigation,item}){
   
 
   return(
     <View style={{flex: 1, justifyContent: 'center' }}>
+      <ScrollView>
       <View>
     <TList style={{flex: 1}}/>
     </View>
@@ -21,6 +24,7 @@ function HomeScreen({navigation,item}){
       onPress={()=> navigation.navigate('Details')} />
 
       </View>
+      </ScrollView>
       </View>
   
 
@@ -30,16 +34,18 @@ function HomeScreen({navigation,item}){
 
 function DetailsScreen({navigation,item}){
 
+
   const[text, setText] = React.useState("");
   return(
 
     
-    <View style={{ flex: 1, justifyContent: 'center'}}>
-      <View>
+    <View style={{ flex: 5, justifyContent: 'center', backgroundColor: '#ff1'}}>
+      <ScrollView>
+      <View style={{ flex: 4, justifyContent: 'center'}}> 
     <TList style={{flex: 1}}/>
     </View>
-
-    <Text>dd Screen</Text>
+    <View style={{ flex: 1, justifyContent: 'center'}}>
+    <Text>NewTask Screen</Text>
 
     <TextInput
     label ="input"
@@ -48,20 +54,18 @@ function DetailsScreen({navigation,item}){
     />
 
     <Button 
-      title="Go to Home"
+      title="Restart!"
       onPress={()=>navigation.navigate('Home')} />
 
-
-    <Button 
-      title="Go Back"
+          <Button 
+      title="back"
       onPress={()=>navigation.goBack()} />
 
 
 <TouchableOpacity 
   style={{ borderWidth:1,
     borderColor:'powderblue',
-    alignItems:'center',
-    justifyContent:'center',
+
     width:100,
 
     backgroundColor:'powderblue',
@@ -69,39 +73,15 @@ function DetailsScreen({navigation,item}){
     borderRadius:100,
   }}
   >
-  <Button borderradius='50' style={{shadowColor: false, borderColor:'powderblue'}} title='HI' color="black"/>
+  <Button borderradius='50'  onPress={()=>navigation.navigate('camera')}  style={{shadowColor: false, borderColor:'powderblue', marginVertical:20, alignItems:'center'}} title='Camera' color="black"/>
 </TouchableOpacity>
-    <Button 
-      title="Go back to first screen in stack"
-      onPress={() => navigation.popToTop()}/>
 
-<Button title="Press" style={{paddingBottom: 5}}/>
+</View>
+</ScrollView>
     </View>
   
   )
 }
-
-function MoreDetails({navigation}){
-    return(
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-    <Text>More Details</Text>
-    
-    <Button 
-      title="Home"
-      onPress={()=>navigation.navigate('Home')} />
-
-    <Button 
-      title="Back to Details"
-      
-      onPress={()=>navigation.navigate('Details')} />
-      <Button title="Press" style={{paddingBottom: 5}}/>
-      <Button title="Home"
-      onPress={()=>inp}
-      />
-    </View>
-  
-  )
-}  
 
 
 
@@ -118,7 +98,8 @@ export default function App(){
       <Stack.Navigator initialRouteName="Home">
         <Stack.Screen name="Details" component={DetailsScreen}/>
         <Stack.Screen name="Home" component ={HomeScreen} />
-        <Stack.Screen name="MoreDetails" component={MoreDetails}/>
+        <Stack.Screen name="camera" component ={CameraWork} />
+
         
       </Stack.Navigator>
 

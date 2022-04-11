@@ -25,7 +25,7 @@ export default function AddTodo({submitHandler}){
 
 
       
-      <Button color='coral' onPress = {()=>submitHandler(text)} title = 'add notes'/>
+      <Button color='coral' onPress = {()=>{if(text!='') submitHandler(text)}} title = 'add notes'/>
     </View>
   );
 }
